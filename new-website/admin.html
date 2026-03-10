@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Piplani PrintLab</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-row">
+        <a class="brand" href="index.html">Piplani <span>PrintLab</span></a>
+        <div class="actions">
+          <a href="catalog.html">Storefront</a>
+          <a href="account.html">Customer View</a>
+          <button class="btn btn-secondary" id="adminLogoutBtn" type="button" style="display:none">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container section">
+      <section class="panel" id="adminLoginSection">
+        <h2>Admin Login</h2>
+        <form id="adminLoginForm" class="option-grid">
+          <label>
+            <span class="label">Admin Username</span>
+            <input type="text" id="adminUsernameInput" placeholder="Enter admin username" />
+          </label>
+          <label>
+            <span class="label">Admin Password</span>
+            <input type="password" id="adminPasswordInput" placeholder="Enter admin password" />
+          </label>
+          <div style="display:flex;align-items:end">
+            <button class="btn btn-primary" type="submit">Login</button>
+          </div>
+        </form>
+        <div class="notice" id="adminLoginMessage">Enter admin password to access dashboard.</div>
+      </section>
+
+      <section class="admin-layout" id="adminContent" style="display:none">
+      <section>
+        <h2>Admin Dashboard</h2>
+        <div class="kpi-row">
+          <div class="kpi"><p>Total Products</p><strong id="adminProducts">0</strong></div>
+          <div class="kpi"><p>Total Orders</p><strong id="adminOrders">0</strong></div>
+          <div class="kpi"><p>Pending Shipments</p><strong id="adminPending">0</strong></div>
+          <div class="kpi"><p>Revenue (Mock)</p><strong id="adminRevenue">₹0</strong></div>
+          <div class="kpi"><p>Most Ordered</p><strong id="adminMostOrdered">-</strong></div>
+          <div class="kpi"><p>Delivering</p><strong id="adminDelivering">0</strong></div>
+          <div class="kpi"><p>Returns</p><strong id="adminReturns">0</strong></div>
+        </div>
+
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin:0.8rem 0 1rem">
+          <button class="pill" type="button" data-admin-tab="orders">Orders</button>
+          <button class="pill" type="button" data-admin-tab="returns">Returns</button>
+          <button class="pill" type="button" data-admin-tab="coupons">Coupons</button>
+          <button class="pill" type="button" data-admin-tab="slides">Festival Slides</button>
+          <button class="pill" type="button" data-admin-tab="corporate">Bulk Requests</button>
+          <button class="pill" type="button" data-admin-tab="customization">Customization Requests</button>
+          <button class="pill" type="button" data-admin-tab="catalog">Catalog</button>
+        </div>
+
+        <div class="panel" data-admin-panel="orders">
+          <h3>Manage Orders</h3>
+          <button class="btn btn-secondary" id="markFirstShipped" type="button">Mark Latest Order as Shipped</button>
+          <div class="notice" id="adminActionMessage">Order actions will update here.</div>
+          <table class="table">
+            <thead>
+              <tr><th>Order</th><th>Customer</th><th>Items Bought</th><th>Delivery Address</th><th>Customer Shared Location</th><th>Status</th><th>Payment</th><th>Mode</th><th>Total</th></tr>
+            </thead>
+            <tbody id="adminOrderRows"></tbody>
+          </table>
+        </div>
+
+        <div class="panel section" data-admin-panel="coupons">
+          <h3>Coupon / Offer Manager</h3>
+          <div class="option-grid">
+            <label><span class="label">Coupon Code</span><input type="text" id="adminCouponCode" placeholder="WELCOME20" /></label>
+            <label><span class="label">Discount Type</span><select id="adminCouponType" class="field"><option value="percent">Percent</option><option value="flat">Flat Amount</option></select></label>
+            <label><span class="label">Value</span><input type="number" id="adminCouponValue" placeholder="10" /></label>
+            <label><span class="label">Minimum Order</span><input type="number" id="adminCouponMinOrder" placeholder="0" /></label>
+            <label><span class="label">Publish Coupon</span><select id="adminCouponActive" class="field"><option value="1">Yes</option><option value="0">No (Draft)</option></select></label>
+          </div>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.7rem">
+            <button class="btn btn-primary" type="button" id="adminAddCouponBtn">Add Coupon</button>
+            <button class="btn btn-secondary" type="button" id="adminUpdateCouponBtn">Update Coupon</button>
+            <button class="btn btn-secondary" type="button" id="adminDeleteCouponBtn">Delete Coupon</button>
+          </div>
+          <div class="notice" id="adminCouponMessage">Create published or draft coupons from here.</div>
+          <table class="table" style="margin-top:0.7rem">
+            <thead>
+              <tr><th>Code</th><th>Type</th><th>Value</th><th>Min Order</th><th>Published</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="adminCouponRows"></tbody>
+          </table>
+        </div>
+
+        <div class="panel section" data-admin-panel="slides">
+          <h3>Festival Slider Images</h3>
+          <div class="option-grid">
+            <label><span class="label">Slide ID (for edit)</span><input type="text" id="adminSlideId" placeholder="PRM-0001" /></label>
+            <label><span class="label">Tag</span><input type="text" id="adminSlideTag" placeholder="Diwali 2026" /></label>
+            <label><span class="label">Title</span><input type="text" id="adminSlideTitle" placeholder="Festival Collection Live" /></label>
+            <label><span class="label">Link (optional)</span><input type="text" id="adminSlideLink" placeholder="catalog.html?category=festival" /></label>
+            <label><span class="label">Display Order</span><input type="number" id="adminSlideOrder" placeholder="1" /></label>
+            <label><span class="label">Publish</span><select id="adminSlideActive" class="field"><option value="1">Yes</option><option value="0">No</option></select></label>
+            <label><span class="label">Upload Photo</span><input type="file" id="adminSlidePhoto" accept="image/*" /></label>
+          </div>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.7rem">
+            <button class="btn btn-primary" type="button" id="adminAddSlideBtn">Add Slide</button>
+            <button class="btn btn-secondary" type="button" id="adminUpdateSlideBtn">Update Slide</button>
+            <button class="btn btn-secondary" type="button" id="adminDeleteSlideBtn">Delete Slide</button>
+          </div>
+          <div class="notice" id="adminSlideMessage">Add multiple festival or campaign photos here.</div>
+          <table class="table" style="margin-top:0.7rem">
+            <thead>
+              <tr><th>ID</th><th>Image</th><th>Tag</th><th>Title</th><th>Order</th><th>Published</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="adminSlideRows"></tbody>
+          </table>
+        </div>
+
+        <div class="panel section" data-admin-panel="corporate">
+          <h3>Corporate Bulk Requests</h3>
+          <table class="table">
+            <thead>
+              <tr><th>ID</th><th>Company</th><th>Person</th><th>Email</th><th>Phone</th><th>Qty</th><th>Requirement</th></tr>
+            </thead>
+            <tbody id="adminCorporateRequestRows"></tbody>
+          </table>
+        </div>
+
+        <div class="panel section" data-admin-panel="customization">
+          <h3>Customization Requests</h3>
+          <table class="table">
+            <thead>
+              <tr><th>ID</th><th>Name</th><th>Contact</th><th>Product</th><th>Need</th><th>Qty</th><th>Date</th></tr>
+            </thead>
+            <tbody id="adminCustomizationRequestRows"></tbody>
+          </table>
+        </div>
+
+        <div class="panel section" data-admin-panel="returns">
+          <h3>Return / Refund Orders</h3>
+          <table class="table">
+            <thead>
+              <tr><th>Order</th><th>Amount</th><th>Delivery Address</th><th>Customer Shared Location</th><th>Status</th></tr>
+            </thead>
+            <tbody id="adminReturnRows"></tbody>
+          </table>
+        </div>
+
+        <div class="panel section" data-admin-panel="catalog">
+          <h3>Catalog Manager</h3>
+          <div class="option-grid">
+            <label><span class="label">Product ID (for edit)</span><input type="text" id="adminProductId" placeholder="PPL-0001" /></label>
+            <label><span class="label">Product Title</span><input type="text" id="adminProductTitle" placeholder="Product title" /></label>
+            <label>
+              <span class="label">Frontend Category Preset</span>
+              <select id="adminProductCategoryPreset">
+                <option value="">Select category preset</option>
+              </select>
+            </label>
+            <label><span class="label">Category Name</span><input type="text" id="adminProductCategory" placeholder="Category" /></label>
+            <label><span class="label">Category ID</span><input type="text" id="adminProductCategoryId" placeholder="phone-electronics" /></label>
+            <label>
+              <span class="label">Frontend Subcategory Preset</span>
+              <select id="adminProductSubcategoryPreset">
+                <option value="">Select subcategory preset</option>
+              </select>
+            </label>
+            <label><span class="label">Subcategory</span><input type="text" id="adminProductSubcategory" placeholder="Phone Cases" /></label>
+            <label><span class="label">Material</span><input type="text" id="adminProductMaterial" placeholder="Acrylic" /></label>
+            <label><span class="label">Customization Type</span><input type="text" id="adminProductCustomizationType" placeholder="ready / name / photo / logo" /></label>
+            <label><span class="label">Color Options</span><input type="text" id="adminProductColors" placeholder="Black,White,Navy" /></label>
+            <label><span class="label">Base Price</span><input type="number" id="adminProductPrice" placeholder="Base price" /></label>
+            <label><span class="label">Max Price</span><input type="number" id="adminProductPriceMax" placeholder="Max price" /></label>
+            <label><span class="label">Custom Price (When Customized)</span><input type="number" id="adminProductCustomPrice" placeholder="e.g. 899" /></label>
+            <label><span class="label">Print Width (px)</span><input type="number" id="adminProductPrintWidth" placeholder="1200" /></label>
+            <label><span class="label">Print Height (px)</span><input type="number" id="adminProductPrintHeight" placeholder="800" /></label>
+            <label><span class="label">Best Seller</span><select id="adminProductBestSeller" class="field"><option value="0">No</option><option value="1">Yes</option></select></label>
+            <label><span class="label">Featured</span><select id="adminProductFeatured" class="field"><option value="0">No</option><option value="1">Yes</option></select></label>
+            <label><span class="label">Product Discount Type</span><select id="adminProductDiscountType" class="field"><option value="none">None</option><option value="percent">Percent</option><option value="flat">Flat Amount</option></select></label>
+            <label><span class="label">Product Discount Value</span><input type="number" id="adminProductDiscountValue" placeholder="0" /></label>
+            <label><span class="label">Product Discount Active</span><select id="adminProductDiscountActive" class="field"><option value="0">No</option><option value="1">Yes</option></select></label>
+            <label><span class="label">Description</span><input type="text" id="adminProductDescription" placeholder="Product description" /></label>
+            <label><span class="label">Upload Photo</span><input type="file" id="adminProductPhoto" accept="image/*" /></label>
+          </div>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.7rem">
+            <button class="btn btn-primary" type="button" id="adminAddProductBtn">Add New Product</button>
+            <button class="btn btn-secondary" type="button" id="adminUpdateProductBtn">Update Product</button>
+            <button class="btn btn-secondary" type="button" id="adminDeleteProductBtn">Remove Product</button>
+          </div>
+          <div class="notice" id="adminProductMessage">Select a product from list to edit, or fill fields to add new.</div>
+          <table class="table" style="margin-top:0.7rem">
+            <thead>
+              <tr><th>ID</th><th>Title</th><th>Category</th><th>Subcategory</th><th>Base Price</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="adminCustomProductRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <h3>Admin Notifications</h3>
+        <div id="adminNotifications"></div>
+      </aside>
+      </section>
+    </main>
+
+    <footer class="footer" data-footer></footer>
+    <script type="module" src="js/admin.js"></script>
+  </body>
+</html>
