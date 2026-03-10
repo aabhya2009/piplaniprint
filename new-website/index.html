@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Piplani PrintLab | Premium Custom Printing E-Commerce</title>
+    <meta
+      name="description"
+      content="Piplani PrintLab offers premium customizable printed products and accessories for India and international customers."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="top-discount-bar">
+      <div class="container" id="discountBar">Loading offers...</div>
+    </div>
+
+    <header class="topbar">
+      <div class="container topbar-row">
+        <a class="brand" href="index.html">Piplani <span>PrintLab</span></a>
+        <form class="searchbar" action="catalog.html" method="get">
+          <input type="text" name="q" placeholder="Search products, categories, materials..." />
+          <button type="submit">Search</button>
+        </form>
+        <div class="actions">
+          <a href="account.html">Login / Dashboard</a>
+          <a href="catalog.html?wishlist=1">Wishlist <span class="count" data-wishlist-count>0</span></a>
+          <a href="checkout.html">Cart <span class="count" data-cart-count>0</span></a>
+          <button class="menu-toggle" data-menu-toggle aria-expanded="false">Menu</button>
+        </div>
+      </div>
+      <nav class="container main-nav">
+        <a href="catalog.html">All Products</a>
+        <a href="#categories">Categories</a>
+        <a href="#featured">Featured</a>
+        <a href="#bestsellers">Best Sellers</a>
+        <a href="#customization">Customization</a>
+        <a href="bulk.html">Corporate / Bulk</a>
+        <a href="#festive">Festival Gifts</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#support">Support</a>
+      </nav>
+      <nav class="container mobile-nav" data-mobile-nav>
+        <a href="catalog.html">All Products</a>
+        <a href="account.html">Login / Dashboard</a>
+        <a href="bulk.html">Corporate / Bulk</a>
+        <a href="admin.html">Admin Dashboard</a>
+        <a href="tracking.html">Track Order</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="section promo-hero">
+        <div class="promo-slider" id="promoSlider">
+          <button class="promo-nav prev" id="promoPrev" type="button" aria-label="Previous">‹</button>
+          <div class="promo-track" id="promoTrack"></div>
+          <button class="promo-nav next" id="promoNext" type="button" aria-label="Next">›</button>
+        </div>
+      </section>
+
+      <section class="hero">
+        <span class="eyebrow">Premium Printed Products & Accessories</span>
+        <h1>Piplani PrintLab. Customization at scale with luxury finish.</h1>
+        <p>
+          Discover 190+ ready-made and customizable products across accessories, gifting, corporate branding,
+          industrial print items, festive collections, and luxury merchandise.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="catalog.html">Shop Catalog</a>
+          <a class="btn btn-secondary" href="#customization">Explore Customization Services</a>
+        </div>
+      </section>
+
+      <section id="categories" class="section">
+        <div class="section-head">
+          <h2>Main Product Categories</h2>
+          <p>12 departments with scalable structure for thousands of products.</p>
+        </div>
+        <div class="grid-cats" id="categoryGrid"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>All Products</h2>
+          <p>Complete product list visible on main page.</p>
+        </div>
+        <div class="grid-products" id="allProductsGrid"></div>
+      </section>
+
+      <section id="featured" class="section">
+        <div class="section-head">
+          <h2>Featured Products</h2>
+          <a class="pill" href="catalog.html?segment=featured">View all</a>
+        </div>
+        <div class="grid-products" id="featuredGrid"></div>
+      </section>
+
+      <section id="bestsellers" class="section">
+        <div class="section-head">
+          <h2>Best Selling Products</h2>
+          <a class="pill" href="catalog.html?segment=bestseller">View all</a>
+        </div>
+        <div class="grid-products" id="bestGrid"></div>
+      </section>
+
+      <section id="customization" class="section grid-cards">
+        <article class="info-card card">
+          <h3>Customization Services</h3>
+          <p>Text, names, photo print, logo branding, color, size, and material options with live price updates.</p>
+          <a class="btn btn-secondary" href="catalog.html?customizable=1">Customize Products</a>
+        </article>
+        <article id="corporate" class="info-card card">
+          <h3>Corporate Bulk Orders</h3>
+          <p>Dedicated B2B workflow for employee kits, events, conferences, and promotional merchandise.</p>
+          <a class="btn btn-secondary" href="corporate.html">Corporate Customization Request</a>
+        </article>
+        <article id="festive" class="info-card card">
+          <h3>Festival & Religious Gift Collections</h3>
+          <p>Seasonal gifting across Diwali, Rakhi, Christmas, and New Year with premium packaging support.</p>
+          <a class="btn btn-secondary" href="catalog.html?category=religious">Shop Religious Gifts</a>
+        </article>
+      </section>
+
+      <section class="section panel">
+        <h2>Request Product Customization</h2>
+        <p>Share product, customization type, and contact details. Our team will contact you.</p>
+        <div class="option-grid">
+          <label><span class="label">Your Name</span><input type="text" id="customReqName" placeholder="Full name" /></label>
+          <label><span class="label">Phone</span><input type="tel" id="customReqPhone" placeholder="+91" /></label>
+          <label><span class="label">Email</span><input type="email" id="customReqEmail" placeholder="you@example.com" /></label>
+          <label><span class="label">Product Name</span><input type="text" id="customReqProduct" placeholder="e.g. Phone Case" /></label>
+          <label><span class="label">Customization Type</span><input type="text" id="customReqType" placeholder="name/photo/logo/design" /></label>
+          <label><span class="label">Quantity</span><input type="number" id="customReqQty" placeholder="1" min="1" /></label>
+        </div>
+        <label><span class="label">Notes</span><textarea class="field" rows="3" id="customReqNotes" placeholder="Color, size, material, timeline"></textarea></label>
+        <button class="btn btn-primary" id="customReqSubmitBtn" type="button">Submit Customization Request</button>
+        <div class="notice" id="customReqMessage">Fill details and submit your request.</div>
+      </section>
+
+      <section id="reviews" class="section grid-cards">
+        <article class="panel review">
+          <p class="rating">★★★★★</p>
+          <p>"The print quality and finish are truly premium. Delivery was fast even for customized orders."</p>
+          <strong>Ritika S., Mumbai</strong>
+        </article>
+        <article class="panel review">
+          <p class="rating">★★★★★</p>
+          <p>"Our corporate onboarding kits looked world-class. Great support and accurate branding."</p>
+          <strong>Arjun M., Bengaluru</strong>
+        </article>
+        <article class="panel review">
+          <p class="rating">★★★★☆</p>
+          <p>"International shipping was smooth. Loved the customization preview and packaging."</p>
+          <strong>Neha P., Dubai</strong>
+        </article>
+      </section>
+
+      <section class="section panel">
+        <h2>Write a Review</h2>
+        <div class="option-grid">
+          <label><span class="label">Your Name</span><input type="text" id="homeReviewAuthor" placeholder="Your name" /></label>
+          <label><span class="label">Product</span><select class="field" id="homeReviewProduct"></select></label>
+          <label><span class="label">Rating</span><select class="field" id="homeReviewRating"><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+        </div>
+        <label><span class="label">Review</span><textarea class="field" rows="3" id="homeReviewComment" placeholder="Share your experience"></textarea></label>
+        <button class="btn btn-secondary" id="homeReviewSubmitBtn" type="button">Submit Review</button>
+        <div class="notice" id="homeReviewMessage">Your review helps other customers.</div>
+      </section>
+
+      <section id="support" class="section panel faq">
+        <div class="section-head">
+          <h2>Customer Support</h2>
+          <p>Live chat, phone, email, and help center support.</p>
+        </div>
+        <p><strong>Phone:</strong> <a href="tel:+919876543210">+91 98765 43210</a></p>
+        <p><strong>Email:</strong> <a href="mailto:support@piplaniprintlab.com">support@piplaniprintlab.com</a></p>
+        <details id="faq">
+          <summary>How does customization pricing work?</summary>
+          <p>Pricing updates dynamically by text length, photo/logo upload, color, size, and material selection.</p>
+        </details>
+        <details>
+          <summary>Do you ship internationally?</summary>
+          <p>Yes. International orders are supported with additional shipping charges based on destination and courier.</p>
+        </details>
+        <details>
+          <summary>How can I place corporate bulk orders?</summary>
+          <p>Use the corporate section in catalog or contact support for dedicated account-managed quotations.</p>
+        </details>
+      </section>
+    </main>
+
+    <div class="live-chat">
+      <button class="btn btn-primary" id="chatToggle">Live Chat</button>
+      <div class="chat-panel" id="chatPanel">
+        <strong>PrintLab Support</strong>
+        <p>Hello. Share your requirement and order ID for quick help.</p>
+        <input class="field" type="text" placeholder="Type your message..." />
+      </div>
+    </div>
+
+    <footer class="footer" data-footer></footer>
+
+    <script type="module" src="js/home.js"></script>
+  </body>
+</html>

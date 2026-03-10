@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: piplani-printlab-api
+    env: node
+    rootDir: backend
+    buildCommand: ""
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: FRONTEND_URL
+        value: https://www.piplanisprint.com
+      - key: ALLOWED_ORIGINS
+        value: https://www.piplanisprint.com,https://piplanisprint.com
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_FROM_NUMBER
+        sync: false

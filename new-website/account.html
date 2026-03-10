@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Dashboard | Piplani PrintLab</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-row">
+        <a class="brand" href="index.html">Piplani <span>PrintLab</span></a>
+        <div class="actions">
+          <a href="catalog.html">Catalog</a>
+          <a href="tracking.html">Track Order</a>
+          <a href="checkout.html">Cart <span class="count" data-cart-count>0</span></a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container section">
+      <section class="panel" id="authSection">
+        <h2>Login / Register</h2>
+        <div class="dual-btn" style="margin-bottom:0.8rem">
+          <button class="btn btn-primary" id="tabLogin" type="button">Login</button>
+          <button class="btn btn-secondary" id="tabRegister" type="button">Register</button>
+        </div>
+
+        <form id="loginForm">
+          <div class="option-grid">
+            <label><span class="label">Email</span><input type="email" id="loginEmail" required /></label>
+            <label><span class="label">Password</span><input type="text" id="loginPassword" required /></label>
+          </div>
+          <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+
+        <form id="registerForm" style="display:none">
+          <div class="option-grid">
+            <label><span class="label">Full Name</span><input type="text" id="regName" required /></label>
+            <label><span class="label">Email</span><input type="email" id="regEmail" required /></label>
+            <label><span class="label">Phone</span><input type="tel" id="regPhone" required /></label>
+            <label><span class="label">Password</span><input type="text" id="regPassword" required /></label>
+          </div>
+          <button class="btn btn-primary" type="submit">Create Account</button>
+        </form>
+
+        <div class="notice" id="authMessage">Use your account to view personal dashboard and saved location/address.</div>
+      </section>
+
+      <section class="account-layout" id="dashboardSection" style="display:none">
+        <section class="panel">
+          <h2>Personal Dashboard</h2>
+          <div class="kpi-row">
+            <div class="kpi"><p>Rewards</p><strong id="rewardPoints">0 pts</strong></div>
+            <div class="kpi"><p>Total Orders</p><strong id="orderCount">0</strong></div>
+            <div class="kpi"><p>Wishlist</p><strong id="wishlistCount">0</strong></div>
+            <div class="kpi"><p>Saved Designs</p><strong id="savedDesigns">0</strong></div>
+          </div>
+
+          <h3>My Orders</h3>
+          <table class="table">
+            <thead>
+              <tr><th>Order ID</th><th>Status</th><th>Payment</th><th>Total</th></tr>
+            </thead>
+            <tbody id="orderRows"></tbody>
+          </table>
+
+          <h3>Saved Location</h3>
+          <p id="savedLocation">Location not saved yet.</p>
+
+          <h3>Saved Addresses</h3>
+          <div id="savedAddressList"></div>
+
+        </section>
+
+        <aside class="panel">
+          <h3>Account Settings</h3>
+          <label><span class="label">Name</span><input type="text" id="nameField" /></label>
+          <label><span class="label">Email</span><input type="email" id="emailField" disabled /></label>
+          <label><span class="label">Phone</span><input type="tel" id="phoneField" /></label>
+          <label><span class="label">Location (Customer Shared)</span><input type="text" id="locationField" placeholder="Area / City / Maps link" /></label>
+          <button class="btn btn-secondary" id="saveAccountBtn" type="button">Save Settings</button>
+
+          <h3 style="margin-top:1rem">Return / Refund Request</h3>
+          <textarea class="field" rows="4" id="returnReasonField" placeholder="Enter order ID and reason"></textarea>
+          <button class="btn btn-secondary" type="button" id="submitReturnBtn">Submit Request</button>
+
+          <button class="btn btn-primary" id="logoutBtn" type="button" style="margin-top:1rem">Logout</button>
+          <div class="notice" id="dashboardMessage">Dashboard ready.</div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="footer" data-footer></footer>
+    <script type="module" src="js/account.js"></script>
+  </body>
+</html>
