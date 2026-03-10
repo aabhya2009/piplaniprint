@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Corporate Customization | Piplani PrintLab</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-row">
+        <a class="brand" href="index.html">Piplani <span>PrintLab</span></a>
+        <div class="actions">
+          <a href="catalog.html">Catalog</a>
+          <a href="account.html">Login / Dashboard</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container section panel">
+      <h2>Corporate Customization Request</h2>
+      <p>Submit your bulk customization requirement. We will respond with design and pricing proposal.</p>
+      <div class="option-grid">
+        <label><span class="label">Company Name</span><input type="text" id="corpCompany" /></label>
+        <label><span class="label">Contact Person</span><input type="text" id="corpName" /></label>
+        <label><span class="label">Email</span><input type="email" id="corpEmail" /></label>
+        <label><span class="label">Phone</span><input type="tel" id="corpPhone" /></label>
+        <label><span class="label">Estimated Quantity</span><input type="number" id="corpQty" /></label>
+      </div>
+      <label><span class="label">Requirement Details</span><textarea id="corpRequirement" class="field" rows="4" placeholder="Products, customization type, timeline, budget"></textarea></label>
+      <button class="btn btn-primary" id="corpSubmitBtn" type="button">Submit Corporate Request</button>
+      <div class="notice" id="corpMessage">Enter request details to submit.</div>
+    </main>
+
+    <footer class="footer" data-footer></footer>
+    <script type="module" src="js/corporate.js"></script>
+  </body>
+</html>

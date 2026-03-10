@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Track Order | Piplani PrintLab</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-row">
+        <a class="brand" href="index.html">Piplani <span>PrintLab</span></a>
+        <div class="actions">
+          <a href="account.html">Dashboard</a>
+          <a href="catalog.html">Catalog</a>
+          <a href="checkout.html">Cart <span class="count" data-cart-count>0</span></a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container section panel">
+      <h2>Order Tracking</h2>
+      <p>Track your shipment with Blue Dart, Delhivery, or DTDC using your courier tracking number.</p>
+      <div class="option-grid">
+        <label>
+          <span class="label">Courier Service</span>
+          <select id="courierSelect" class="field"></select>
+        </label>
+        <label>
+          <span class="label">Tracking Number</span>
+          <input id="trackingNo" type="text" placeholder="Enter tracking number" />
+        </label>
+      </div>
+      <div class="dual-btn">
+        <button class="btn btn-primary" id="trackBtn" type="button">Track Shipment</button>
+        <a class="btn btn-secondary" id="courierLink" href="#" target="_blank" rel="noreferrer">Open Courier Portal</a>
+      </div>
+      <div class="notice" id="trackingResult">Awaiting tracking input.</div>
+    </main>
+
+    <footer class="footer" data-footer></footer>
+    <script type="module" src="js/tracking.js"></script>
+  </body>
+</html>

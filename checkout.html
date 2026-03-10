@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | Piplani PrintLab</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-row">
+        <a class="brand" href="index.html">Piplani <span>PrintLab</span></a>
+        <div class="actions">
+          <a href="catalog.html">Continue Shopping</a>
+          <a href="catalog.html?wishlist=1">Wishlist <span class="count" data-wishlist-count>0</span></a>
+          <a href="checkout.html">Cart <span class="count" data-cart-count>0</span></a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container section checkout-layout">
+      <section class="panel">
+        <h2>Checkout</h2>
+        <p>Secure checkout supporting UPI, cards, net banking, and international payments.</p>
+        <div class="option-grid">
+          <label><span class="label">Full Name</span><input type="text" id="fullName" placeholder="Your full name" /></label>
+          <label><span class="label">Email</span><input type="email" id="email" placeholder="you@example.com" /></label>
+          <label><span class="label">Phone</span><input type="tel" id="phone" placeholder="+91" /></label>
+          <label><span class="label">Country</span><input type="text" id="country" value="India" /></label>
+          <label><span class="label">Address Line 1</span><input type="text" id="address1" placeholder="House no, street" /></label>
+          <label><span class="label">Address Line 2</span><input type="text" id="address2" placeholder="Area / landmark" /></label>
+          <label><span class="label">City</span><input type="text" id="city" placeholder="City" /></label>
+          <label><span class="label">State</span><input type="text" id="state" placeholder="State" /></label>
+          <label><span class="label">Postal Code</span><input type="text" id="postal" placeholder="Postal / ZIP" /></label>
+          <label><span class="label">Location (Customer Shared)</span><input type="text" id="locationText" placeholder="Area / Google Maps link / Landmark" /></label>
+        </div>
+
+        <div class="filter-block">
+          <h4>Payment Method</h4>
+          <select id="paymentMethod" class="field"></select>
+          <div id="paymentFields" style="margin-top:0.7rem"></div>
+        </div>
+
+        <div class="filter-block">
+          <h4>Order OTP Verification</h4>
+          <div class="option-grid">
+            <label><span class="label">Send OTP To</span>
+              <select id="otpChannel" class="field">
+                <option value="phone">Phone</option>
+                <option value="email">Email</option>
+              </select>
+            </label>
+            <label><span class="label">Enter OTP</span><input type="text" id="otpCode" placeholder="6-digit OTP" /></label>
+          </div>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.6rem">
+            <button class="btn btn-secondary" id="sendOtpBtn" type="button">Send OTP</button>
+            <button class="btn btn-secondary" id="verifyOtpBtn" type="button">Verify OTP</button>
+          </div>
+          <div class="notice" id="otpMessage" style="margin-top:0.5rem">Verify OTP before placing order.</div>
+        </div>
+
+        <div class="notice" id="shippingNotice">Domestic shipping applied for India orders.</div>
+        <button class="btn btn-primary" id="placeOrderBtn" type="button">Place Order</button>
+        <div class="notice" id="checkoutMessage">Fill shipping details to place order.</div>
+      </section>
+
+      <aside class="panel">
+        <h3>Order Summary</h3>
+        <div id="cartSummary"></div>
+        <div class="filter-block">
+          <h4>Discount Coupon</h4>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            <input class="field" type="text" id="couponCode" placeholder="Enter coupon code" style="flex:1;min-width:180px" />
+            <button class="btn btn-secondary" id="applyCouponBtn" type="button">Apply</button>
+          </div>
+          <div class="notice" id="couponMessage" style="margin-top:0.5rem">Enter coupon if you have one.</div>
+        </div>
+        <div class="price-box">
+          <p>Subtotal: <strong id="subtotal">₹0</strong></p>
+          <p>Coupon Discount: <strong id="discount">₹0</strong></p>
+          <p>Shipping: <strong id="shipping">₹0</strong></p>
+          <p>Total: <strong id="total">₹0</strong></p>
+          <p>Rewards Earned: <strong id="rewards">0</strong> pts</p>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer" data-footer></footer>
+    <script type="module" src="js/checkout.js"></script>
+  </body>
+</html>

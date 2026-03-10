@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catalog | Piplani PrintLab</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-row">
+        <a class="brand" href="index.html">Piplani <span>PrintLab</span></a>
+        <form class="searchbar" id="catalogSearch">
+          <input type="text" id="searchInput" placeholder="Search in 190+ products" />
+          <button type="submit">Search</button>
+        </form>
+        <div class="actions">
+          <a href="account.html">Login / Dashboard</a>
+          <a href="catalog.html?wishlist=1">Wishlist <span class="count" data-wishlist-count>0</span></a>
+          <a href="checkout.html">Cart <span class="count" data-cart-count>0</span></a>
+          <button class="menu-toggle" data-menu-toggle aria-expanded="false">Menu</button>
+        </div>
+      </div>
+      <nav class="container mobile-nav" data-mobile-nav>
+        <a href="index.html">Home</a>
+        <a href="tracking.html">Track Order</a>
+        <a href="admin.html">Admin</a>
+      </nav>
+    </header>
+
+    <main class="container section">
+      <div class="section-head">
+        <h1>Product Catalog</h1>
+        <p id="catalogCount"></p>
+      </div>
+      <div class="catalog-layout">
+        <aside class="panel filters">
+          <h3>Filters</h3>
+          <div class="filter-block">
+            <h4>Price Range</h4>
+            <input type="range" min="100" max="5000" value="100" id="minPrice" />
+            <input type="range" min="100" max="5000" value="5000" id="maxPrice" />
+            <div class="range-values">
+              <span id="minPriceValue">100</span>
+              <span id="maxPriceValue">5000</span>
+            </div>
+          </div>
+          <div class="filter-block" id="categoryFilters">
+            <h4>Product Category</h4>
+          </div>
+          <div class="filter-block" id="materialFilters">
+            <h4>Material Type</h4>
+          </div>
+          <div class="filter-block" id="customizationFilters">
+            <h4>Customization Type</h4>
+          </div>
+          <div class="filter-block" id="ratingFilters">
+            <h4>Customer Rating</h4>
+            <label><input type="radio" name="rating" value="0" checked /> Any</label>
+            <label><input type="radio" name="rating" value="4" /> 4+ stars</label>
+            <label><input type="radio" name="rating" value="4.5" /> 4.5+ stars</label>
+          </div>
+          <div class="filter-block" id="deliveryFilters">
+            <h4>Delivery Speed</h4>
+          </div>
+          <div class="filter-block">
+            <button class="btn btn-secondary" id="clearFilters" type="button">Clear Filters</button>
+          </div>
+        </aside>
+
+        <section>
+          <div class="sortbar">
+            <span></span>
+            <div class="filter-inline">
+              <select id="sortSelect">
+                <option value="popular">Most Popular</option>
+                <option value="price-low">Price low to high</option>
+                <option value="price-high">Price high to low</option>
+                <option value="rated">Best rated</option>
+                <option value="newest">Newest products</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-products" id="catalogGrid"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer" data-footer></footer>
+    <script type="module" src="js/catalog.js"></script>
+  </body>
+</html>
