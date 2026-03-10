@@ -21,8 +21,8 @@ import {
   updateAdminProduct
 } from "./api.js";
 
-const ADMIN_USERNAME = "aabhya";
-const ADMIN_PASSWORD = "aabhya123aabhya";
+const ADMIN_USERNAME = "piplanisprintadmin";
+const ADMIN_PASSWORD = "aabhyaric#1";
 const ADMIN_SESSION_KEY = "ppl_admin_authenticated";
 
 let currentProducts = [];
