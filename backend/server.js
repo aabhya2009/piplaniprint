@@ -226,6 +226,105 @@ async function dispatchSms(db, to, message) {
   }
 }
 
+async function sendTwilioVerifyOtp(db, to, channel = 'sms') {
+  const sid = process.env.TWILIO_ACCOUNT_SID;
+  const token = process.env.TWILIO_AUTH_TOKEN;
+  const serviceSid = process.env.TWILIO_VERIFY_SERVICE_SID;
+  if (!sid || !token || !serviceSid) {
+    return { ok: false, status: 'not_configured', provider: 'local_queue' };
+  }
+
+  try {
+    const body = new URLSearchParams({
+      To: to,
+      Channel: channel
+    });
+    const auth = Buffer.from(`${sid}:${token}`).toString('base64');
+    const response = await fetch(`https://verify.twilio.com/v2/Services/${serviceSid}/Verifications`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${auth}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      appendLog(db, 'error', {
+        event: 'twilio_verify_send_failed',
+        provider: 'twilio_verify',
+        to,
+        statusCode: response.status,
+        error: payload.message || 'Twilio Verify API error'
+      });
+      return { ok: false, status: 'failed', provider: 'twilio_verify', error: payload.message || 'Twilio Verify API error' };
+    }
+    return {
+      ok: true,
+      status: payload.status || 'pending',
+      provider: 'twilio_verify',
+      providerId: payload.sid || ''
+    };
+  } catch (error) {
+    appendLog(db, 'error', {
+      event: 'twilio_verify_send_failed',
+      provider: 'twilio_verify',
+      to,
+      error: String(error && error.message ? error.message : error)
+    });
+    return { ok: false, status: 'failed', provider: 'twilio_verify', error: String(error && error.message ? error.message : error) };
+  }
+}
+
+async function verifyTwilioOtp(db, to, code) {
+  const sid = process.env.TWILIO_ACCOUNT_SID;
+  const token = process.env.TWILIO_AUTH_TOKEN;
+  const serviceSid = process.env.TWILIO_VERIFY_SERVICE_SID;
+  if (!sid || !token || !serviceSid) {
+    return { ok: false, status: 'not_configured' };
+  }
+
+  try {
+    const body = new URLSearchParams({
+      To: to,
+      Code: code
+    });
+    const auth = Buffer.from(`${sid}:${token}`).toString('base64');
+    const response = await fetch(`https://verify.twilio.com/v2/Services/${serviceSid}/VerificationCheck`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${auth}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      appendLog(db, 'error', {
+        event: 'twilio_verify_check_failed',
+        provider: 'twilio_verify',
+        to,
+        statusCode: response.status,
+        error: payload.message || 'Twilio Verify check failed'
+      });
+      return { ok: false, status: 'failed', error: payload.message || 'Twilio Verify check failed' };
+    }
+    return {
+      ok: payload.status === 'approved',
+      status: payload.status || 'pending',
+      provider: 'twilio_verify'
+    };
+  } catch (error) {
+    appendLog(db, 'error', {
+      event: 'twilio_verify_check_failed',
+      provider: 'twilio_verify',
+      to,
+      error: String(error && error.message ? error.message : error)
+    });
+    return { ok: false, status: 'failed', error: String(error && error.message ? error.message : error) };
+  }
+}
+
 function sanitizeText(value) {
   return String(value || '')
     .replace(/[<>]/g, '')
@@ -576,7 +675,8 @@ const server = http.createServer(async (req, res) => {
     db.otpSessions = db.otpSessions.slice(0, 500);
     if (channel === 'phone') {
       const smsMessage = `Dear ${name}, your OTP for verification of Piplni's Print is ${otp}. Please do not share it with anyone.`;
-      const smsResult = await dispatchSms(db, recipient, smsMessage);
+      const verifyResult = await sendTwilioVerifyOtp(db, recipient, 'sms');
+      const smsResult = verifyResult.ok ? verifyResult : await dispatchSms(db, recipient, smsMessage);
       db.smsQueue.unshift({
         id: `SMS-${Date.now()}`,
         to: recipient,
@@ -610,6 +710,33 @@ const server = http.createServer(async (req, res) => {
     const email = sanitizeText(payload.email || '').toLowerCase();
     const recipient = channel === 'phone' ? phone : email;
     const code = sanitizeText(payload.otp);
+    if (channel === 'phone') {
+      const twilioResult = await verifyTwilioOtp(db, recipient, code);
+      if (twilioResult.status !== 'not_configured') {
+        if (!twilioResult.ok) {
+          sendJson(res, 400, { error: twilioResult.error || 'Invalid OTP' }, req);
+          return;
+        }
+        const twilioSession = {
+          id: `OTP-${Date.now()}`,
+          channel,
+          recipient,
+          otp: '',
+          name: '',
+          purpose: 'order',
+          verified: true,
+          consumed: false,
+          attempts: 1,
+          createdAt: new Date().toISOString(),
+          expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString()
+        };
+        db.otpSessions.unshift(twilioSession);
+        db.otpSessions = db.otpSessions.slice(0, 500);
+        writeDb(db);
+        sendJson(res, 200, { verified: true }, req);
+        return;
+      }
+    }
     const now = Date.now();
     const otpEntry = db.otpSessions.find((entry) => entry.channel === channel && entry.recipient === recipient && !entry.consumed && now <= new Date(entry.expiresAt).getTime());
     if (!otpEntry) {
