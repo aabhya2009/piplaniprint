@@ -35,7 +35,7 @@ export function mountFooter() {
   footer.innerHTML = `
     <div class="footer-grid">
       <div>
-        <h4>Piplani PrintLab</h4>
+        <h4>Piplni's Print</h4>
         <p>Premium customizable printing products and accessories across India and global markets.</p>
       </div>
       <div>
@@ -56,7 +56,7 @@ export function mountFooter() {
         <p>Domestic India delivery with international shipping available at additional courier rates.</p>
       </div>
     </div>
-    <p class="copyright">© 2026 Piplani PrintLab. All rights reserved.</p>
+    <p class="copyright">© 2026 Piplni's Print. All rights reserved.</p>
   `;
 }
 

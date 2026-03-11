@@ -575,7 +575,7 @@ const server = http.createServer(async (req, res) => {
     db.otpSessions.unshift(otpEntry);
     db.otpSessions = db.otpSessions.slice(0, 500);
     if (channel === 'phone') {
-      const smsMessage = `Dear ${name}, your OTP for verification of Piplani PrintLab is ${otp}. Please do not share it with anyone.`;
+      const smsMessage = `Dear ${name}, your OTP for verification of Piplni's Print is ${otp}. Please do not share it with anyone.`;
       const smsResult = await dispatchSms(db, recipient, smsMessage);
       db.smsQueue.unshift({
         id: `SMS-${Date.now()}`,
@@ -591,8 +591,8 @@ const server = http.createServer(async (req, res) => {
       db.emailQueue.unshift({
         id: `EMAIL-${Date.now()}`,
         to: recipient,
-        subject: 'Your Piplani PrintLab OTP',
-        body: `Dear ${name}, your OTP for verification of Piplani PrintLab is ${otp}. Please do not share it with anyone.`,
+        subject: "Your Piplni's Print OTP",
+        body: `Dear ${name}, your OTP for verification of Piplni's Print is ${otp}. Please do not share it with anyone.`,
         createdAt: new Date().toISOString(),
         status: 'queued'
       });
@@ -733,7 +733,7 @@ const server = http.createServer(async (req, res) => {
       id: `EMAIL-${Date.now()}`,
       to: order.email,
       subject: `Order Confirmation - ${order.orderId}`,
-      body: `Dear ${order.customer}, thank you for shopping with Piplani PrintLab. Your order ${order.orderId} has been confirmed.`,
+      body: `Dear ${order.customer}, thank you for shopping with Piplni's Print. Your order ${order.orderId} has been confirmed.`,
       createdAt: new Date().toISOString(),
       status: 'queued'
     });
@@ -741,7 +741,7 @@ const server = http.createServer(async (req, res) => {
       id: `SMS-${Date.now()}`,
       to: order.phone,
       template: 'order_confirmation',
-      message: `Dear ${order.customer}, thank you for purchasing from Piplani PrintLab. Your order ID is ${order.orderId}. To track your order, please visit: ${FRONTEND_URL}/tracking.html. We sincerely appreciate your purchase.`,
+      message: `Dear ${order.customer}, thank you for purchasing from Piplni's Print. Your order ID is ${order.orderId}. To track your order, please visit: ${FRONTEND_URL}/tracking.html. We sincerely appreciate your purchase.`,
       createdAt: new Date().toISOString(),
       status: 'queued'
     });
@@ -1250,5 +1250,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Piplani PrintLab API running on port ${PORT}`);
+  console.log(`Piplni's Print API running on port ${PORT}`);
 });

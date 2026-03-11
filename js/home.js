@@ -38,27 +38,6 @@ async function renderProducts() {
   }
 }
 
-async function renderAllProducts() {
-  const root = document.getElementById("allProductsGrid");
-  if (!root) return;
-  try {
-    const first = await fetchCatalogProducts({ limit: 60, page: 1, sort: "popular" });
-    const totalPages = Number(first.pagination?.totalPages || 1);
-    const list = [...(first.products || [])];
-    if (totalPages > 1) {
-      const pages = await Promise.all(
-        Array.from({ length: totalPages - 1 }, (_, i) => fetchCatalogProducts({ limit: 60, page: i + 2, sort: "popular" }))
-      );
-      pages.forEach((pageData) => {
-        list.push(...(pageData.products || []));
-      });
-    }
-    root.innerHTML = list.length ? list.map(productCard).join("") : "<p>No products available.</p>";
-  } catch {
-    root.innerHTML = "<p>Could not load products.</p>";
-  }
-}
-
 function setReqMessage(text, isError = false) {
   const node = document.getElementById("customReqMessage");
   if (!node) return;
@@ -217,7 +196,6 @@ async function renderPromoSlider() {
 
 renderCategories();
 renderProducts();
-renderAllProducts();
 renderPromoSlider();
 wireChat();
 renderDiscountBar();
