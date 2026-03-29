@@ -157,7 +157,7 @@ function renderPromoSlides(slides) {
   if (!slides.length) {
     track.innerHTML = `
       <article class="promo-slide">
-        <div style="width:100%;height:100%;min-height:inherit;background:#f5ede3"></div>
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1600&q=80" alt="Editorial cover visual" />
       </article>
     `;
     prev.style.display = "none";
