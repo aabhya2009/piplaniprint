@@ -6,6 +6,11 @@ let cachedProducts = [];
 let promoIndex = 0;
 let promoTimer = null;
 
+document.body.classList.add("page-home");
+requestAnimationFrame(() => {
+  document.body.classList.add("home-ready");
+});
+
 function renderCategories() {
   const root = document.getElementById("categoryGrid");
   root.innerHTML = categories
