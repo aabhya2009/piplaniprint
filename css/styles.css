@@ -26,6 +26,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -190,6 +191,119 @@ img {
   padding: clamp(1.3rem, 4vw, 3.2rem);
   position: relative;
   overflow: hidden;
+}
+
+.landing-stage {
+  position: relative;
+  margin: 1rem 0 1.6rem;
+  min-height: calc(100svh - 126px);
+}
+
+.hero-stage-slider {
+  min-height: calc(100svh - 126px);
+  max-height: 860px;
+  border-radius: 34px;
+  border-color: #d5c9b9;
+  background: #111111;
+  box-shadow: 0 26px 64px rgba(17, 17, 17, 0.16);
+}
+
+.hero-stage-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(17, 17, 17, 0.7) 0%, rgba(17, 17, 17, 0.24) 34%, rgba(17, 17, 17, 0.12) 64%, rgba(17, 17, 17, 0.52) 100%),
+    linear-gradient(180deg, rgba(17, 17, 17, 0.12) 0%, rgba(17, 17, 17, 0.28) 100%);
+}
+
+.hero-stage-meta {
+  position: absolute;
+  z-index: 3;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+}
+
+.hero-stage-meta.top-left {
+  top: 1.35rem;
+  left: 1.4rem;
+}
+
+.hero-stage-meta.top-right {
+  top: 1.35rem;
+  right: 1.4rem;
+  text-align: right;
+}
+
+.hero-stage-meta span {
+  display: block;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.hero-stage-meta strong {
+  display: block;
+  margin-top: 0.28rem;
+  font-size: 0.8rem;
+  color: #f6f1ea;
+}
+
+.hero-stage-card {
+  position: absolute;
+  left: clamp(1rem, 3vw, 2rem);
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  margin: 0;
+  z-index: 2;
+  background:
+    linear-gradient(135deg, rgba(17, 17, 17, 0.84), rgba(53, 45, 37, 0.72));
+  backdrop-filter: blur(12px);
+}
+
+.hero-scroll-link {
+  position: absolute;
+  left: 50%;
+  bottom: 0.95rem;
+  z-index: 4;
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hero-scroll-link span {
+  font-size: 0.64rem;
+  opacity: 0.72;
+}
+
+.hero-scroll-link strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(17, 17, 17, 0.3);
+  font-size: 1rem;
+  animation: heroScrollPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes heroScrollPulse {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
 }
 
 .hero-editorial {
@@ -358,44 +472,7 @@ img {
   font-size: 0.95rem;
 }
 
-.story-strip {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.8rem;
-}
-
-.story-cell {
-  position: relative;
-  border-top: 1px solid rgba(17, 17, 17, 0.16);
-  padding: 0.9rem 0.2rem 0;
-}
-
-.story-index {
-  display: inline-block;
-  margin-bottom: 0.35rem;
-  color: #111111;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.story-cell p {
-  max-width: 28ch;
-  font-size: 0.92rem;
-  line-height: 1.55;
-}
-
-.promo-hero {
-  margin-top: 0.2rem;
-}
-
-.promo-hero .promo-slider {
-  border-radius: 30px;
-  overflow: hidden;
-  box-shadow: 0 18px 38px rgba(17, 17, 17, 0.08);
-}
-
-.promo-hero .promo-slider::after {
+.hero-stage-slider::after {
   content: "Curated visuals";
   position: absolute;
   left: 1rem;
@@ -456,11 +533,6 @@ img {
   min-height: 280px;
 }
 
-.promo-hero .promo-slider {
-  min-height: 50vh;
-  max-height: 50vh;
-}
-
 .promo-track {
   display: flex;
   width: 100%;
@@ -497,9 +569,8 @@ img {
   place-items: center;
 }
 
-.page-home .promo-hero,
+.page-home .landing-stage,
 .page-home .hero,
-.page-home .story-strip,
 .page-home #categories,
 .page-home #featured,
 .page-home #bestsellers,
@@ -508,9 +579,8 @@ img {
   transform: translateY(18px);
 }
 
-.page-home.home-ready .promo-hero,
+.page-home.home-ready .landing-stage,
 .page-home.home-ready .hero,
-.page-home.home-ready .story-strip,
 .page-home.home-ready #categories,
 .page-home.home-ready #featured,
 .page-home.home-ready #bestsellers,
@@ -524,24 +594,20 @@ img {
   transition-delay: 0.08s;
 }
 
-.page-home.home-ready .story-strip {
-  transition-delay: 0.16s;
-}
-
 .page-home.home-ready #categories {
-  transition-delay: 0.22s;
+  transition-delay: 0.18s;
 }
 
 .page-home.home-ready #featured {
-  transition-delay: 0.28s;
+  transition-delay: 0.24s;
 }
 
 .page-home.home-ready #bestsellers {
-  transition-delay: 0.34s;
+  transition-delay: 0.3s;
 }
 
 .page-home.home-ready #customization {
-  transition-delay: 0.4s;
+  transition-delay: 0.36s;
 }
 
 .page-home .hero-copy > *,
@@ -1405,6 +1471,24 @@ textarea::placeholder {
 }
 
 @media (max-width: 860px) {
+  .landing-stage {
+    margin-top: 0.8rem;
+    min-height: calc(100svh - 110px);
+  }
+
+  .hero-stage-slider {
+    min-height: calc(100svh - 110px);
+    border-radius: 26px;
+  }
+
+  .hero-stage-card {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin-top: -4.4rem;
+  }
+
   .hero-editorial {
     grid-template-columns: 1fr;
   }
@@ -1417,9 +1501,18 @@ textarea::placeholder {
     display: none;
   }
 
-  .story-strip {
-    grid-template-columns: 1fr;
-    gap: 0.4rem;
+  .hero-stage-meta.top-left {
+    top: 0.9rem;
+    left: 0.9rem;
+  }
+
+  .hero-stage-meta.top-right {
+    top: 0.9rem;
+    right: 0.9rem;
+  }
+
+  .hero-scroll-link {
+    bottom: 0.75rem;
   }
 
   body {
@@ -1592,6 +1685,27 @@ textarea::placeholder {
     min-height: unset;
   }
 
+  .hero-stage-slider {
+    min-height: calc(100svh - 112px);
+  }
+
+  .hero-stage-card {
+    margin-top: -2.8rem;
+  }
+
+  .hero-stage-meta {
+    display: none;
+  }
+
+  .hero-scroll-link span {
+    font-size: 0.58rem;
+  }
+
+  .hero-scroll-link strong {
+    width: 30px;
+    height: 30px;
+  }
+
   .hero-visual-frame {
     min-height: 250px;
     border-radius: 22px;
@@ -1637,14 +1751,13 @@ textarea::placeholder {
     min-height: 48px;
   }
 
-  .promo-slider,
-  .promo-hero .promo-slider {
+  .promo-slider {
     border-radius: 22px;
     min-height: 34vh;
     max-height: 34vh;
   }
 
-  .promo-hero .promo-slider::after {
+  .hero-stage-slider::after {
     left: 0.8rem;
     bottom: 0.8rem;
     font-size: 0.66rem;
