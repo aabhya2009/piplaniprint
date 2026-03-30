@@ -170,12 +170,24 @@ function renderPromoSlides(slides) {
       (slide) => `
       <article class="promo-slide">
         ${slide.link ? `<a href="${slide.link}">` : ""}
-          <img src="${slide.imageData}" alt="${slide.title || "Festival visual"}" />
+          ${
+            slide.mediaType === "video"
+              ? `<video src="${slide.imageData}" autoplay muted loop playsinline aria-label="${slide.title || "Homepage cover video"}"></video>`
+              : `<img src="${slide.imageData}" alt="${slide.title || "Homepage cover visual"}" />`
+          }
         ${slide.link ? "</a>" : ""}
       </article>
     `
     )
     .join("");
+
+  if (slides.length <= 1) {
+    prev.style.display = "none";
+    next.style.display = "none";
+  } else {
+    prev.style.display = "grid";
+    next.style.display = "grid";
+  }
 
   const move = (index) => {
     promoIndex = (index + slides.length) % slides.length;

@@ -96,25 +96,25 @@
         </div>
 
         <div class="panel section" data-admin-panel="slides">
-          <h3>Festival Slider Images</h3>
+          <h3>Homepage Cover Media</h3>
           <div class="option-grid">
             <label><span class="label">Slide ID (for edit)</span><input type="text" id="adminSlideId" placeholder="PRM-0001" /></label>
-            <label><span class="label">Tag</span><input type="text" id="adminSlideTag" placeholder="Diwali 2026" /></label>
-            <label><span class="label">Title</span><input type="text" id="adminSlideTitle" placeholder="Festival Collection Live" /></label>
+            <label><span class="label">Tag</span><input type="text" id="adminSlideTag" placeholder="Homepage Cover" /></label>
+            <label><span class="label">Title</span><input type="text" id="adminSlideTitle" placeholder="Main Landing Cover" /></label>
             <label><span class="label">Link (optional)</span><input type="text" id="adminSlideLink" placeholder="catalog.html?category=festival" /></label>
             <label><span class="label">Display Order</span><input type="number" id="adminSlideOrder" placeholder="1" /></label>
             <label><span class="label">Publish</span><select id="adminSlideActive" class="field"><option value="1">Yes</option><option value="0">No</option></select></label>
-            <label><span class="label">Upload Photo</span><input type="file" id="adminSlidePhoto" accept="image/*" /></label>
+            <label><span class="label">Upload Image / Video</span><input type="file" id="adminSlidePhoto" accept="image/*,video/*" /></label>
           </div>
           <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.7rem">
             <button class="btn btn-primary" type="button" id="adminAddSlideBtn">Add Slide</button>
             <button class="btn btn-secondary" type="button" id="adminUpdateSlideBtn">Update Slide</button>
             <button class="btn btn-secondary" type="button" id="adminDeleteSlideBtn">Delete Slide</button>
           </div>
-          <div class="notice" id="adminSlideMessage">Add multiple festival or campaign photos here.</div>
+          <div class="notice" id="adminSlideMessage">Upload the homepage background image or video here. The first published item becomes the front screen cover.</div>
           <table class="table" style="margin-top:0.7rem">
             <thead>
-              <tr><th>ID</th><th>Image</th><th>Tag</th><th>Title</th><th>Order</th><th>Published</th><th>Actions</th></tr>
+              <tr><th>ID</th><th>Media</th><th>Tag</th><th>Title</th><th>Order</th><th>Published</th><th>Actions</th></tr>
             </thead>
             <tbody id="adminSlideRows"></tbody>
           </table>

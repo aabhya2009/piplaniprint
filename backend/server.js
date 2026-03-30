@@ -976,6 +976,7 @@ const server = http.createServer(async (req, res) => {
       title: String(payload.title || 'Festival Offer').trim(),
       tag: String(payload.tag || 'New').trim(),
       imageData: String(payload.imageData),
+      mediaType: String(payload.mediaType || 'image').trim() === 'video' ? 'video' : 'image',
       link: String(payload.link || '').trim(),
       active: payload.active !== undefined ? Boolean(payload.active) : true,
       order: Number.isFinite(Number(payload.order)) ? Number(payload.order) : db.promoSlides.length + 1,
@@ -996,10 +997,11 @@ const server = http.createServer(async (req, res) => {
       sendJson(res, 404, { error: 'Promo slide not found' });
       return;
     }
-    const fields = ['title', 'tag', 'imageData', 'link', 'active', 'order'];
+    const fields = ['title', 'tag', 'imageData', 'link', 'active', 'order', 'mediaType'];
     fields.forEach((field) => {
       if (payload[field] !== undefined) slide[field] = payload[field];
     });
+    if (slide.mediaType !== 'video') slide.mediaType = 'image';
     addNotification(db, `Promo slide updated: ${slide.title}`, 'promo');
     writeDb(db);
     sendJson(res, 200, { slide });

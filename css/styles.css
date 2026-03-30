@@ -195,17 +195,19 @@ img {
 
 .landing-stage {
   position: relative;
-  margin: 1rem 0 1.6rem;
+  width: 100vw;
+  margin: 0 0 1.6rem;
+  margin-left: calc(50% - 50vw);
   min-height: calc(100svh - 126px);
 }
 
 .hero-stage-slider {
   min-height: calc(100svh - 126px);
-  max-height: 860px;
-  border-radius: 34px;
-  border-color: #d5c9b9;
+  max-height: none;
+  border-radius: 0;
+  border: 0;
   background: #111111;
-  box-shadow: 0 26px 64px rgba(17, 17, 17, 0.16);
+  box-shadow: none;
 }
 
 .hero-stage-gradient {
@@ -264,60 +266,44 @@ img {
 
 .cover-panel {
   position: absolute;
-  left: clamp(1rem, 3vw, 2rem);
-  right: clamp(1rem, 3vw, 2rem);
-  bottom: clamp(1rem, 3vw, 2rem);
+  left: 50%;
+  bottom: clamp(1.2rem, 3vw, 2.2rem);
   z-index: 3;
+  transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: clamp(1.2rem, 3vw, 2rem);
-  border-radius: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: linear-gradient(135deg, rgba(17, 17, 17, 0.34), rgba(17, 17, 17, 0.14));
-  backdrop-filter: blur(6px);
-}
-
-.cover-kicker {
-  display: inline-flex;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-
-.cover-panel h1 {
-  margin: 0;
-  max-width: 10ch;
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(2.6rem, 7vw, 5.2rem);
-  line-height: 0.96;
-  color: #ffffff;
+  justify-content: center;
+  width: min(92vw, 1120px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
 }
 
 .cover-submenu {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
+  justify-content: center;
+  gap: 0.65rem;
 }
 
 .cover-submenu a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 40px;
-  padding: 0.62rem 0.9rem;
+  min-height: 42px;
+  padding: 0.68rem 1rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.26);
-  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(17, 17, 17, 0.22);
   color: #ffffff;
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
 }
 
 .cover-submenu a:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(17, 17, 17, 0.4);
 }
 
 .hero-scroll-link {
@@ -531,18 +517,7 @@ img {
 }
 
 .hero-stage-slider::after {
-  content: "Curated visuals";
-  position: absolute;
-  left: 1rem;
-  bottom: 1rem;
-  z-index: 2;
-  padding: 0.45rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(17, 17, 17, 0.72);
-  color: #ffffff;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  content: none;
 }
 
 .eyebrow {
@@ -610,6 +585,20 @@ img {
   transform: scale(1.02);
 }
 
+.promo-slide video,
+.promo-slide a,
+.promo-slide a img,
+.promo-slide a video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.promo-slide video,
+.promo-slide a video {
+  object-fit: cover;
+}
+
 .promo-nav {
   position: absolute;
   top: 50%;
@@ -625,6 +614,10 @@ img {
   line-height: 1;
   display: grid;
   place-items: center;
+}
+
+.landing-stage .promo-nav {
+  display: none !important;
 }
 
 .page-home .landing-stage,
@@ -1571,16 +1564,8 @@ textarea::placeholder {
   }
 
   .cover-panel {
-    left: 0.9rem;
-    right: 0.9rem;
+    width: calc(100vw - 1.8rem);
     bottom: 0.9rem;
-    padding: 1rem;
-    border-radius: 22px;
-  }
-
-  .cover-panel h1 {
-    max-width: 11ch;
-    font-size: clamp(2.2rem, 8vw, 4rem);
   }
 
   .hero-editorial {
@@ -1788,20 +1773,8 @@ textarea::placeholder {
   }
 
   .cover-panel {
-    left: 0.75rem;
-    right: 0.75rem;
+    width: calc(100vw - 1.5rem);
     bottom: 0.75rem;
-    gap: 0.8rem;
-    padding: 0.9rem;
-  }
-
-  .cover-kicker {
-    font-size: 0.64rem;
-  }
-
-  .cover-panel h1 {
-    font-size: clamp(2rem, 11vw, 3rem);
-    max-width: 9ch;
   }
 
   .cover-submenu {

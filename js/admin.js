@@ -473,6 +473,7 @@ function collectSlidePayload() {
   const link = document.getElementById("adminSlideLink")?.value.trim() || "";
   const order = Number(document.getElementById("adminSlideOrder")?.value || 0);
   const active = (document.getElementById("adminSlideActive")?.value || "1") === "1";
+  const mediaType = uploadedSlideImageData.startsWith("data:video") ? "video" : "image";
   return {
     payload: {
       title,
@@ -480,7 +481,8 @@ function collectSlidePayload() {
       link,
       order,
       active,
-      imageData: uploadedSlideImageData || undefined
+      imageData: uploadedSlideImageData || undefined,
+      mediaType
     }
   };
 }
@@ -504,7 +506,9 @@ function renderSlideRows() {
           (slide) => `
           <tr>
             <td>${slide.id}</td>
-            <td>${slide.imageData ? `<img src="${slide.imageData}" alt="${slide.title}" style="width:72px;height:50px;object-fit:cover;border-radius:8px" />` : "-"}</td>
+            <td>${slide.imageData ? (slide.mediaType === "video"
+              ? `<video src="${slide.imageData}" style="width:72px;height:50px;object-fit:cover;border-radius:8px" muted playsinline></video>`
+              : `<img src="${slide.imageData}" alt="${slide.title}" style="width:72px;height:50px;object-fit:cover;border-radius:8px" />`) : "-"}</td>
             <td>${slide.tag || "-"}</td>
             <td>${slide.title || "-"}</td>
             <td>${slide.order || 0}</td>
@@ -707,7 +711,7 @@ function wireSlideManager() {
     const reader = new FileReader();
     reader.onload = () => {
       uploadedSlideImageData = String(reader.result || "");
-      setSlideMessage("Slider photo attached.");
+      setSlideMessage(file.type.startsWith("video/") ? "Homepage cover video attached." : "Homepage cover image attached.");
     };
     reader.readAsDataURL(file);
   });
@@ -715,15 +719,15 @@ function wireSlideManager() {
   addBtn?.addEventListener("click", async () => {
     const { payload } = collectSlidePayload();
     if (!payload.imageData) {
-      setSlideMessage("Upload image before adding slide.", true);
+      setSlideMessage("Upload image or video before adding cover media.", true);
       return;
     }
     try {
       await createAdminPromoSlide(payload);
-      setSlideMessage("Slider photo added.");
+      setSlideMessage("Homepage cover media added.");
       await loadAdminTables();
     } catch (e) {
-      setSlideMessage(e.message || "Could not add slide.", true);
+      setSlideMessage(e.message || "Could not add homepage cover media.", true);
     }
   });
 
@@ -736,10 +740,10 @@ function wireSlideManager() {
     const { payload } = collectSlidePayload();
     try {
       await updateAdminPromoSlide(id, payload);
-      setSlideMessage(`Slide ${id} updated.`);
+      setSlideMessage(`Cover media ${id} updated.`);
       await loadAdminTables();
     } catch (e) {
-      setSlideMessage(e.message || "Could not update slide.", true);
+      setSlideMessage(e.message || "Could not update homepage cover media.", true);
     }
   });
 
@@ -751,10 +755,10 @@ function wireSlideManager() {
     }
     try {
       await deleteAdminPromoSlide(id);
-      setSlideMessage(`Slide ${id} deleted.`);
+      setSlideMessage(`Cover media ${id} deleted.`);
       await loadAdminTables();
     } catch (e) {
-      setSlideMessage(e.message || "Could not delete slide.", true);
+      setSlideMessage(e.message || "Could not delete homepage cover media.", true);
     }
   });
 }
